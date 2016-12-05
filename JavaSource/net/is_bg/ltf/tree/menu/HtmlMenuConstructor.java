@@ -15,7 +15,6 @@ import org.richfaces.component.UIDropDownMenu;
 import org.richfaces.component.UIMenuGroup;
 import org.richfaces.component.UIMenuItem;
 import org.richfaces.component.UIToolbar;
-import org.richfaces.renderkit.html.MenuGroupRenderer;
 
 import net.is_bg.ltf.businessmodels.menu.MenuNode;
 import net.is_bg.ltf.treeutil.ITreeNode;
@@ -33,7 +32,6 @@ public class HtmlMenuConstructor {
 			this.node = node;
 		}
 		ITreeNode<Integer, MenuNode> node;
-		MenuDecorator parent;
 		List<MenuDecorator>  children = new ArrayList<MenuDecorator>();
 		UIComponent thisNodeHtml;
 		UIComponent thisNodeHtmlParent;
@@ -60,9 +58,7 @@ public class HtmlMenuConstructor {
 		}else{
 			//no children ----> leaf , menu end point
 			////HtmlMenuItem menuItem = new HtmlMenuItem();
-			 UIMenuItem menuItem = (UIMenuItem) ctx.getApplication().createComponent(ctx, 
-		                UIMenuItem.COMPONENT_TYPE,
-		                "org.richfaces.MenuItemRenderer");
+			 UIMenuItem menuItem = (UIMenuItem) ctx.getApplication().createComponent(ctx, UIMenuItem.COMPONENT_TYPE, "org.richfaces.MenuItemRenderer");
 			//menuItem.setStyleClass("toolBarItem");
 			//menuItem.setSubmitMode("ajax");
 			menuItem.setLabel(node.node.getData().getMenuName());
@@ -130,7 +126,6 @@ public class HtmlMenuConstructor {
 				//get parent node from map
 				MenuDecorator parent = node.node.getParentNode() == null ? null : parentChildMap.get(node.node.getParentNode().getKey());
 				if(parent !=null) {
-					node.parent = parent;
 					parent.children.add(node);
 				}else{   //add to root
 					root.children.add(node);

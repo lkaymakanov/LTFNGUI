@@ -11,18 +11,7 @@ import javax.servlet.ServletContextListener;
 import net.is_bg.ltf.ServiceLocator;
 
 
-/*import net.is_bg.common.AppUtil;
-import net.is_bg.common.ContextParams.RESOURCES;
-import net.is_bg.common.hibernate.util.HibernateUtil;
-import net.is_bg.common.util.FileUtil;
 
-
-import org.springframework.scheduling.config.ScheduledTaskRegistrar;
-
-import taskscheduler.Frequency;
-import taskscheduler.ScheduledTask;
-import taskscheduler.TaskUtils;
-import taskscheduler.ThreadPoolTaskScheduler;*/
 
 
 public class ApplicationInitListener implements ServletContextListener {

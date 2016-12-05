@@ -20,31 +20,12 @@ public class ServiceLocator {
 	
 	private  MenuDao menuDao;
 	private final static ServiceLocator serviceLocator = new ServiceLocator();
+	private IConnectionFactoryX cf;
 	
-	
-	private ConnectionProperties pr = new ConnectionProperties();
-	private IConnectionFactoryX cex = new IConnectionFactoryX() {
-		
-		@Override
-		public Connection getConnection() {
-			// TODO Auto-generated method stub
-			return new DataSourceConnectionFactoryDrManager(pr).getConnection();
-		}
-		
-		@Override
-		public Connection getConnection(String arg0) {
-			// TODO Auto-generated method stub
-			return new DataSourceConnectionFactoryDrManager(pr).getConnection();
-		}
-	};
-	{
-		pr.setDriver( "org.postgresql.Driver");
-		pr.setUrl("jdbc:postgresql://10.240.110.70:5432/pdv");
-		pr.setUser("pdv");
-		pr.setPass("pdv");
-	}
+
 
 	private  ServiceLocator(){
+		cf = new MyConnectionFactory("jdbc:postgresql://10.240.110.70:5432/pdv", "pdv", "pdv");
 		DBConfig.initDBConfig(new LogFactorySystemOut(), 
 				new IVisitFactory() {
 					@Override
@@ -52,7 +33,7 @@ public class ServiceLocator {
 						// TODO Auto-generated method stub
 						return new VisitEmpty();
 					}
-					}, cex, new IElaplsedTimerFactory() {
+					}, cf, new IElaplsedTimerFactory() {
 					
 					@Override
 					public IElaplsedTimer getElapsedTimer() {
