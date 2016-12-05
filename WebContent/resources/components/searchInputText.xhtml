@@ -1,0 +1,51 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+<composite:interface>
+	<composite:attribute name="model" type="net.is_bg.common.IModel"
+		required="true" />
+	<composite:attribute name="render" default=""
+		type="java.lang.String" />	
+	<composite:attribute name="styleClass" default="inputText"
+		type="java.lang.String" />
+	<composite:attribute name="style" default="inputText"
+		type="java.lang.String" />
+	<composite:attribute name="searchValue" type="java.lang.String"
+		required="true" />
+	<composite:attribute name="rendermagnifier" type="java.lang.Boolean" default="false"
+		required="false" />
+	<composite:attribute name="renderclear" type="java.lang.Boolean" default="false"
+		required="false" />
+	<composite:attribute name="disableinput" type="java.lang.Boolean" default="false"
+		required="false" />
+	<composite:attribute name="action"
+		method-signature="java.lang.String action()" required="true"
+		shortDescription="String method that will be called on click of search button"/>
+	<composite:attribute name="resetAction"
+		method-signature="void action(java.lang.Enum)" required="true"
+		shortDescription="String method that will be called on click of reset button"/>
+	<composite:attribute name="disabled" default="false"
+		type="java.lang.Boolean" />
+</composite:interface>
+<composite:implementation>
+	<h:panelGrid columns="2">
+		<h:inputText style="#{cc.attrs.style}"
+			styleClass="#{cc.attrs.styleClass}"
+			value="#{cc.attrs.model[cc.attrs.searchValue]}"
+			disabled="#{cc.attrs.model.id > 0 or cc.attrs.disabled or cc.attrs.disableinput}" />
+		<h:commandButton styleClass="toolButton"
+			image="/images/icons/silk/16x16/magnifier.png"
+			action="#{cc.attrs.action}" rendered="#{(1 > cc.attrs.model.id or cc.attrs.rendermagnifier) and !cc.attrs.renderclear}" />
+		<h:commandButton styleClass="toolButton"
+			disabled="#{cc.attrs.disabled}"
+			image="/images/icons/silk/16x16/delete.png"
+			rendered="#{cc.attrs.model.id > 0 or cc.attrs.renderclear}" action="#{cc.attrs.resetAction}" render="#{render}"
+			title="Изчисти" />
+	</h:panelGrid>
+</composite:implementation>
+</html>

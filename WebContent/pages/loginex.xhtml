@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="/templates/commonlayout.xhtml">
+	<ui:define name="title">#{msgLogin.caption}</ui:define>
+	
+	<ui:define name="mainMenu">
+		<rich:toolbar id="mainMenuBar" style="margin-top:-4px;">	
+			
+		</rich:toolbar>
+	</ui:define>
+
+	<ui:define name="pageBody">
+<!-- 	
+	<a4j:outputPanel>
+<script type="text/javascript">
+	window.setTimeout(' window.location="login.jsf"; ',1000*#{session.maxInactiveInterval});
+</script>
+	</a4j:outputPanel>
+ -->	
+
+	<h:form>
+			<rich:collapsiblePanel rendered="#{sessionDataBean.visit.multiDbSupport}" id="header" expanded="false" switchType="client" header="Само за служебно ползване">
+				<h:outputText value="Select DB:" />
+				<h:selectOneMenu  value="#{sessionDataBean.visit.selectedDbIndex}" style=" width : 308px;">
+					<f:selectItems value="#{sessionDataBean.visit.dataSources}"></f:selectItems>
+				</h:selectOneMenu>		
+			</rich:collapsiblePanel>
+		<rich:panel width="250" style="z-index:1;position:relative;">
+			<f:facet name="header">#{msgLogin.caption}</f:facet>
+			
+			<f:facet name="footer">#{msgLogin.caption}</f:facet>
+			
+			<h:panelGroup rendered="false" style="display:block;max-height:250px;overflow:auto;">	
+				<h:selectOneRadio value="#{loginBean.defDbConn}" 
+								  layout="pageDirection" style="font: monospace bold 14pt !important;"
+								  rendered="true">
+					<f:selectItems value="#{loginBean.dbConns}" />
+				</h:selectOneRadio>
+			</h:panelGroup>
+									
+			<h:panelGrid columns="7">
+				<h:outputText value="#{msgLogin.username}" />
+				<h:inputText value="#{loginBean.username}" />
+
+				<h:outputText value="#{msgLogin.password}" />
+				<h:inputSecret value="#{loginBean.password}" />
+
+				<h:commandButton value="#{msgButtons.btnEnter}" 
+								 action="#{loginBean.login}" 
+								 onclick="showSandClock();"
+								 oncomplete="hideSandClock();" />
+			</h:panelGrid>
+		</rich:panel>
+	</h:form>
+	
+	<h:outputText value="Your session has been expired!" rendered="#{param.reason == 'expired'}" />
+	<h:outputText value="This resource is missing or forbidden!" rendered="#{param.reason == 'forbidden'}" />
+	
+	<h:panelGroup styleClass="euroSigns">
+		
+		<h:outputLink value="#{msgHeader.euSite}" target="parent" styleClass="euLink">
+			<h:graphicImage id="flag_eu" url="/images/flag_eu.jpg" alt="Flag EU" width="120px"/>
+		</h:outputLink>
+		
+		<h:outputText value="#{msgHeader.euSign}" escape="false" styleClass="explainSign" />
+		
+		<h:outputLink value="#{msgHeader.euEsfSite}" target="parent" styleClass="euEsfLink">
+			<h:graphicImage id="soc_eu" url="/images/soc_eu.jpg" alt="Soc EU" width="120px"/>
+			 
+		</h:outputLink>
+	</h:panelGroup>
+	
+	<ui:include src="/templates/include/msgmodal.xhtml">
+		<ui:param name="xBean" value="#{loginBean}" /> 
+	</ui:include>	
+	
+	</ui:define>
+</ui:composition>
+</html>

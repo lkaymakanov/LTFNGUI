@@ -1,0 +1,65 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+<composite:interface>
+	<composite:attribute name="jolanaCombos"
+		type="net.is_bg.common.inclide.JolanaCombos" required="true" />
+	<composite:attribute name="render" default="none"
+		type="java.lang.String" />
+	<composite:attribute name="disabled" default="false"
+		type="java.lang.Boolean" />
+</composite:interface>
+<composite:implementation>
+	<h:panelGroup layout="block" id="grid" >
+		<cc:reportEntityCombo itemLabel="nameSemester" criteriaName="Семестър"
+			value="#{cc.attrs.jolanaCombos.semesterCombo}"
+			selectedValue="#{cc.attrs.jolanaCombos.selectedSemester}"
+			converterId="semesterComboBoxConverter"
+			render="grid #{cc.attrs.render}" disabled="#{cc.attrs.disabled}" />
+		<cc:reportEntityCombo itemLabel="nameFaculty" criteriaName="Факултет"
+			value="#{cc.attrs.jolanaCombos.facultyCombo}"
+			selectedValue="#{cc.attrs.jolanaCombos.selectedFaculty}"
+			converterId="facultyComboBoxConverter" render="grid #{cc.attrs.render}"
+			disabled="#{cc.attrs.jolanaCombos.selectedSemester == null or cc.attrs.disabled}" />
+		<cc:reportEntityCombo itemLabel="nameSpeciality"
+			criteriaName="Специалност"
+			value="#{cc.attrs.jolanaCombos.specialityCombo}"
+			selectedValue="#{cc.attrs.jolanaCombos.selectedSpeciality}"
+			converterId="specialityComboBoxConverter"
+			render="grid #{cc.attrs.render}"
+			disabled="#{cc.attrs.jolanaCombos.selectedFaculty == null or cc.attrs.disabled}" />
+		<cc:reportEntityCombo itemLabel="decode.fullname"
+			criteriaName="Форма на обучение"
+			value="#{cc.attrs.jolanaCombos.tspecialityeduCombo}"
+			selectedValue="#{cc.attrs.jolanaCombos.selectedTspecialityedu}"
+			converterId="tspecialityeduComboBoxConverter"
+			render="grid #{cc.attrs.render}"
+			disabled="#{cc.attrs.jolanaCombos.selectedSpeciality == null or cc.attrs.disabled}" />
+		<div class="reportFieldset">
+		<div class="reportFieldsetHeader">
+			Курс
+		</div>
+			<h:selectOneMenu styleClass="dropDown"
+				value="#{cc.attrs.jolanaCombos.courseCombo.value}"
+				disabled="#{cc.attrs.jolanaCombos.selectedTspecialityedu == null or cc.attrs.disabled}">
+				<f:selectItems value="#{cc.attrs.jolanaCombos.courseCombo.data}" />
+				<a4j:ajax listener="#{cc.attrs.jolanaCombos.courseCombo.changeCombo}"
+					render="grid #{cc.attrs.render}"></a4j:ajax>
+			</h:selectOneMenu>
+		</div>
+		<cc:reportEntityCombo itemLabel="nameCoursegroup"
+			criteriaName="Група"
+			value="#{cc.attrs.jolanaCombos.coursegroupCombo}"
+			selectedValue="#{cc.attrs.jolanaCombos.selectedCourseGroup}"
+			converterId="coursegroupComboBoxConverter"
+			render="grid #{cc.attrs.render}"
+			disabled="#{1 > cc.attrs.jolanaCombos.courseCombo.value or cc.attrs.disabled}" />
+	</h:panelGroup>
+</composite:implementation>
+</html>

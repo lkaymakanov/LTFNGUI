@@ -1,0 +1,58 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+<composite:interface>
+	<composite:attribute name="criteriaName" type="java.lang.String"
+		required="true" shortDescription="Label of fieldset" />
+	<composite:attribute name="label" type="java.lang.String"
+		required="true"
+		shortDescription="Label displayed over first input text field" />
+	<composite:attribute name="label2" type="java.lang.String"
+		required="true"
+		shortDescription="Label displayed over second input text field" />
+	<composite:attribute name="search1Value" required="true"
+		type="java.lang.String"
+		shortDescription="String value assosiated to first input text field that will be used as search string" />
+	<composite:attribute name="search2Value" required="true"
+		type="java.lang.String"
+		shortDescription="String value assosiated to second input text field that will be used as search string" />
+	<composite:attribute name="action"
+		method-signature="java.lang.String action()" required="false"
+		shortDescription="String method that will be called on click of search button" />
+	<composite:attribute name="width"
+		type="java.lang.String"
+		shortDescription="Width of first input text field (Do not forget px. after numbers!!!)" />
+	<composite:attribute name="width2"
+		type="java.lang.String"
+		shortDescription="Width of second second input text field (Do not forget px. after numbers!!!)" />
+	<composite:attribute name="disabled" default="false"
+		type="java.lang.Boolean" />
+</composite:interface>
+<composite:implementation>
+	<div class="reportFieldset">
+	<div class="reportFieldsetHeader">
+		#{cc.attrs.criteriaName}
+	</div>
+		<h:panelGrid columns="3">
+			<h:outputText value="#{cc.attrs.label}" />
+			<h:outputText value="#{cc.attrs.label2}" />
+			<h:outputText value="" />
+			<h:inputText value="#{cc.attrs.search1Value}"
+				style=" width : #{(cc.attrs.width != null) ? cc.attrs.width : 80}px;"
+				disabled="#{cc.attrs.disabled}" />
+			<h:inputText value="#{cc.attrs.search2Value}"
+				style=" width : #{(cc.attrs.width2 != null) ? cc.attrs.width2 : 200}px;"
+				disabled="#{cc.attrs.disabled}" />
+			<h:commandButton styleClass="toolButton"
+				image="/images/icons/silk/16x16/magnifier.png"
+				action="#{cc.attrs.action}" disabled="#{cc.attrs.disabled}" />
+		</h:panelGrid>
+	</div>
+</composite:implementation>
+</html>
+

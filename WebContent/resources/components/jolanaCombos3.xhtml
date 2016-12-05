@@ -1,0 +1,94 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+<composite:interface>
+	<composite:attribute name="jolanaCombos3"
+		type="net.is_bg.common.inclide.JolanaCombos3" required="true" />
+	<composite:attribute name="render" default="none"
+		type="java.lang.String" />
+	<composite:attribute name="disabled" default="false"
+		type="java.lang.Boolean" />
+	<composite:attribute name="direction" default="line"
+		type="java.lang.String" />
+</composite:interface>
+<composite:implementation>
+	<h:panelGrid styleClass="searchTableAddCriteria" columns="#{(cc.attrs.direction == 'line') ? 6 : 2}"
+		id="grid">
+		<h:outputText value="Факултет" />
+		<h:outputText value="Специалност"
+			rendered="#{cc.attrs.direction == 'line'}" />
+		<h:outputText value="Форма на обучение"
+			rendered="#{cc.attrs.direction == 'line'}" />
+		<h:outputText value="Випуск"
+			rendered="#{cc.attrs.direction == 'line'}" />
+		<h:outputText value="Курс"
+			rendered="#{cc.attrs.direction == 'line'}" />
+		<h:outputText value="Група"
+			rendered="#{cc.attrs.direction == 'line'}" />
+		<cc:entityCombo value="#{cc.attrs.jolanaCombos3.facultyCombo}"
+			selectedValue="#{cc.attrs.jolanaCombos3.selectedFaculty}"
+			itemLabel="nameFaculty" converterId="facultyComboBoxConverter"
+			render="grid #{cc.attrs.render}" 
+			disabled="#{cc.attrs.disabled}" />
+		<h:outputText value="Специалност"
+			rendered="#{cc.attrs.direction == 'page'}" />
+		<cc:entityCombo value="#{cc.attrs.jolanaCombos3.specialityCombo}"
+			selectedValue="#{cc.attrs.jolanaCombos3.selectedSpeciality}"
+			itemLabel="nameSpeciality, specialitynom" converterId="specialityComboBoxConverter"
+			render="grid #{cc.attrs.render}"
+			disabled="#{cc.attrs.jolanaCombos3.selectedFaculty == null}"
+			style="width:300px;" />
+		<h:outputText value="Форма на обучение"
+			rendered="#{cc.attrs.direction == 'page'}" />
+		<cc:entityCombo value="#{cc.attrs.jolanaCombos3.tspecialityeduCombo}"
+			selectedValue="#{cc.attrs.jolanaCombos3.selectedTspecialityedu}"
+			itemLabel="decode.fullname" converterId="tspecialityeduComboBoxConverter"
+			render="grid #{cc.attrs.render}"
+			disabled="#{cc.attrs.jolanaCombos3.selectedSpeciality == null or cc.attrs.disabled}"/>
+		<h:outputText value="Випуск"
+			rendered="#{cc.attrs.direction == 'page'}" />
+		<cc:entityCombo value="#{cc.attrs.jolanaCombos3.courseCombo}"
+			selectedValue="#{cc.attrs.jolanaCombos3.selectedCourse}"
+			itemLabel="codeCourse"
+			converterId="courseComboBoxConverter"
+			render="grid #{cc.attrs.render}"
+			disabled="#{cc.attrs.jolanaCombos3.selectedTspecialityedu == null or cc.attrs.disabled}"/>
+		<h:outputText value="Курс"/>
+		<cc:entityCombo id="codeStudyTypesComboId" value="#{cc.attrs.jolanaCombos3.coursesemesterCombo}"
+			selectedValue="#{cc.attrs.jolanaCombos3.selectedCourseSemester}"
+			itemLabel="coursenom"
+			disabled="#{cc.attrs.jolanaCombos3.selectedCourse == null or cc.attrs.disabled}"
+			converterId="coursesemesterConverter"
+			render="grid #{cc.attrs.render}"/>
+		<h:outputText value="Група"/>
+		<cc:entityCombo value="#{cc.attrs.jolanaCombos3.courseGroupCombo}"
+			selectedValue="#{cc.attrs.jolanaCombos3.selectedCourseGroup}"
+			itemLabel="nameCoursegroup"
+			converterId="coursegroupComboBoxConverter"
+			render="grid #{cc.attrs.render}"
+			disabled="#{cc.attrs.jolanaCombos3.selectedCourseSemester == null or cc.attrs.disabled}"
+			>
+			</cc:entityCombo>
+		<h:outputText value="Статус"
+			/>
+		<h:selectOneMenu value="#{cc.attrs.jolanaCombos3.selectedNoActive}">
+			<f:selectItems value="#{cc.attrs.jolanaCombos3.noActive}" />
+			<a4j:ajax event="change" render="grid" listener="#{cc.attrs.jolanaCombos3.unLinkedCombesCallBack}"/>
+		</h:selectOneMenu>
+		<h:outputText value="Статус на студент(МОН)"
+			/>	
+		<cc:entityCombo value="#{cc.attrs.jolanaCombos3.codeactionCombo}"
+			selectedValue="#{cc.attrs.jolanaCombos3.selectedCodeAction}"
+			itemLabel="actionName"
+			converterId="codeactionConverter"
+			render="grid #{cc.attrs.render}">
+		</cc:entityCombo>
+	</h:panelGrid>
+</composite:implementation>
+</html>
