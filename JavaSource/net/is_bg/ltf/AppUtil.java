@@ -7,9 +7,11 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
 import javax.el.ELContext;
 import javax.el.ExpressionFactory;
 import javax.el.ValueExpression;
@@ -568,6 +570,89 @@ public class AppUtil {
 			   ipAddress = request.getRemoteAddr();  
 		   }
 		   return ipAddress;
+	}
+
+	public static byte[] readFileContent(File file){
+		return readFileContent(file, 1024*1024);
+	}
+	
+	private static class ByteArray {
+		ByteArray(byte []b, int size){
+			this.b = b;
+			this.size = size;
+		}
+	
+		byte [] b;
+		int size;
+	}
+	
+	public static byte[] readFileContent(File file ,int bufferSize){
+		// contain bytes read from file
+	      //Vector fileBytes = new Vector();
+		 List<ByteArray>  barrayList = new ArrayList<ByteArray>();
+		 byte [] buffer = new byte [bufferSize];
+		 int size = 0;
+		 
+	      // read contents from file 
+	      try {
+	         FileInputStream in = new FileInputStream( file );
+	         // read bytes from stream.
+	         int blength;
+	        
+	         while ((blength = in.read(buffer))!=-1) {
+	        	 barrayList.add(new ByteArray(buffer, blength));
+	        	 size+=blength;
+	            //contents = ( byte )in.read();
+	            //fileBytes.add( new Byte( contents ) );
+	         }
+	           
+	         in.close();
+	      } 
+	      // handle IOException
+	      catch ( IOException exception ) {
+	         exception.printStackTrace();
+	      }
+	      
+	      // create byte array from contents in Vector fileBytes
+	      byte[] fileContent = new byte[ size];
+	      
+	      int offset = 0;
+	      for ( int i = 0; i < barrayList.size(); i++ ) {
+	    	  ByteArray b = barrayList.get(i);
+	    	  
+	    	  for(int j=0; j < b.size; j++){
+	    		  fileContent[offset+j] = b.b[j];
+	    	  }
+	    	  offset+=b.size;
+	      }
+	      return fileContent;
+	}
+	
+	
+	/***
+	 * Manage icon paths!!!
+	 * @author lubo
+	 *
+	 */
+	public static class Icons {
+		private static String  iconFolder = "images/icons/silk";
+		private static Integer iconSize = 16;
+		private static String  iconExtention = ".png";
+		
+		public static  String getIconUrl(String iconFolder, Integer iconSize, String iconName){
+			String iconUrl = "/" + iconFolder + "/" + iconSize.toString() + "x" + iconSize.toString() + "/" + iconName + iconExtention;
+			return iconUrl;
+		}
+		
+		public static String getIconUrl(Integer iconSize, String iconName){
+			String iconUrl = "/" + iconFolder + "/" + iconSize.toString() + "x" + iconSize.toString() + "/" + iconName + iconExtention;
+			return iconUrl;
+		}
+		
+		public static String getIconUrl(String iconName){
+			String iconUrl = "/" + iconFolder + "/" + iconSize.toString() + "x" + iconSize + "/" + iconName + iconExtention;
+			return iconUrl;
+		}
 	}
 
 }

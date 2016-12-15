@@ -14,7 +14,7 @@ import net.is_bg.ltf.treeutil.ITreeNode;
  * @author lubo
  *
  */
-public class MenuTreeConstructor implements ITreeConstructor<Integer, MenuNode> {
+class MenuTreeConstructor implements ITreeConstructor<Integer, MenuNode> {
 	private MenuTreeNode tree = new MenuTreeNode();
 	private Map<Integer, MenuTreeNode>  menunodeMap = new HashMap<Integer, MenuTreeNode>();
 	private List<MenuTreeNode> menunodeList =  new ArrayList<MenuTreeNode>();
@@ -50,7 +50,7 @@ public class MenuTreeConstructor implements ITreeConstructor<Integer, MenuNode> 
 	}
 	
 	
-	public static ITreeNode<Integer, MenuNode> createMenuTree(List<MenuNode> menu){
+	static ITreeNode<Integer, MenuNode> createMenuTree(List<MenuNode> menu){
 		return new MenuTreeConstructor(menu).constructTrree(); 
 	}
 	

@@ -8,14 +8,12 @@
 	
 	<ui:composition template="/templates/commonlayout.xhtml">
 		<ui:define name="pageBody">
-			body here
-		</ui:define>
-		
-		<ui:define name="mainMenu">
-		<h:form>
-			<rich:toolbar binding="#{mainFormBean.menu}" >
-			</rich:toolbar>
-		</h:form>
+			<iframe name="ibody" 
+					class="ibody"
+					src="https://www.google.bg/"
+					scrolling="auto" 
+					frameborder="0" marginheight="0" marginwidth="0">
+			</iframe>
 		</ui:define>
 	</ui:composition>
 </html>

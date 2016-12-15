@@ -6,8 +6,20 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 	
-	<rich:panel id="appFooter" >
-		footer here
-	</rich:panel>	
+	
+	<rich:toolbar id="appFooter_footer" >	
+			<rich:toolbarGroup location="left" id="footerLeft" layout="block">
+				<h:outputLink value="#{msgFooter.mySite}" target="parent" styleClass="isLink">
+					<h:graphicImage id="logo_is_footer" url="/images/logo_is_footer.png" alt="Autor logo" height="30"/>
+				</h:outputLink>
+			</rich:toolbarGroup>
+			
+			<rich:toolbarGroup location="right" id="footerRight" layout="block" >
+				<h:panelGroup styleClass="footerContacts">
+					<h:outputLabel value="#{msgFooter.myCity} #{msgFooter.myPostcode}, #{msgFooter.myAddress}"/><br/>
+					<h:outputLabel value="#{msgFooter.myPhone}, #{msgFooter.myFax}" />
+				</h:panelGroup>
+			</rich:toolbarGroup>
+		</rich:toolbar>
 	
 </ui:composition>

@@ -10,7 +10,6 @@ import java.util.List;
 
 import net.is_bg.ltf.ServiceLocator;
 import net.is_bg.ltf.tree.menu.HtmlMenuConstructor;
-import net.is_bg.ltf.tree.menu.MenuTreeConstructor;
 
 import org.richfaces.component.UIToolbar;
 
@@ -30,7 +29,7 @@ public class MainFormBean implements Serializable{
 		 MenuSql sql = new MenuSql(1);
 		 ServiceLocator.getServicelocator().getMenuDao().execute(sql);
 		 List<MenuNode> lmenu =  sql.getUnorderedMenuList();
-		 menu = HtmlMenuConstructor.createMenuToolbar(MenuTreeConstructor.createMenuTree(lmenu));
+		 menu = HtmlMenuConstructor.createMenuToolbar(lmenu);
 	}
 
 	public UIToolbar getMenu() {

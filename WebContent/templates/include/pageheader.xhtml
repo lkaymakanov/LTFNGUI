@@ -9,14 +9,15 @@
 	
 	<h:panelGrid width="100%">
 		<rich:toolbar  rendered="true" id="appHeader_header">
-				APPLICATION
-		</rich:toolbar>
 
+		</rich:toolbar>
 		<ui:insert name="mainMenu" id="mainMenu" layout="block">
-			<h:form id="mainMenuBar" >
-				MENU HERE
+			<h:form id="mainMenuBar" name="mainMenuBar" >
+				<div style="margin-top:-4px;">
+					<rich:toolbar  id="mainMenuBar" binding="#{mainFormBean.menu}" >
+					</rich:toolbar>
+				</div>
 			</h:form>
 		</ui:insert>
 	</h:panelGrid>
-
 </ui:composition>

@@ -395,24 +395,35 @@
 			<artifactId>poi-ooxml-schemas</artifactId>
 			<version>3.10-FINAL</version>
 		</dependency>
+		
+		<!-- 
 		<dependency>
 			<groupId>com.sun.jersey</groupId>
 			<artifactId>jersey-bundle</artifactId>
 			<version>1.18</version>
 		</dependency>
-		<!-- <dependency> <groupId>org.codehaus.jackson</groupId> <artifactId>jackson-mapper-asl</artifactId> 
-			<version>1.9.13</version> </dependency> -->
-		<dependency>
-			<groupId>asm</groupId>
-			<artifactId>asm</artifactId>
-			<version>3.3.1</version>
-		</dependency>
+		 <dependency> <groupId>org.codehaus.jackson</groupId> <artifactId>jackson-mapper-asl</artifactId> 
+			<version>1.9.13</version> 
+		</dependency> 
+		
 		<dependency>
 			<groupId>com.sun.jersey</groupId>
 			<artifactId>jersey-json</artifactId>
 			<version>1.18</version>
 		</dependency>
 		
+		<dependency>
+			<groupId>org.jvnet.mimepull</groupId>
+			<artifactId>mimepull</artifactId>
+			<version>1.9.3</version>
+		</dependency>
+		-->
+		
+		<dependency>
+			<groupId>asm</groupId>
+			<artifactId>asm</artifactId>
+			<version>3.3.1</version>
+		</dependency>
 
 		 
 		 <dependency>
@@ -421,7 +432,7 @@
 		  	<version>1.6.11</version>
 		 </dependency>
 		 
-		<!--  ws shit stuff --> 
+		<!--  ws shit stuff
 		<dependency>
 			<groupId>org.apache.axis2</groupId>
 			<artifactId>axis2</artifactId>
@@ -447,6 +458,7 @@
    			<artifactId>axis2-transport-http</artifactId>
    			<version>1.6.2</version>
   		</dependency>
+  		-->
 		<dependency>
 			<groupId>org.apache.myfaces.tomahawk</groupId>
 			<artifactId>tomahawk</artifactId>
@@ -487,6 +499,29 @@
 			<version>1.2.5307</version>
 		</dependency>
 		
+		<dependency>
+			<groupId>authenticate</groupId>
+			<artifactId>authenticate</artifactId>
+			<version>1.7</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>CC</groupId>
+			<artifactId>CCRest</artifactId>
+			<version>2.7.4</version>
+	  	</dependency>
+	  	<dependency>
+			<groupId>CC</groupId>
+			<artifactId>CCDocument</artifactId>
+			<version>1.0</version>
+	  	</dependency>
+	  	<!-- 
+	  	<dependency>
+			<groupId>org.glassfish.jersey.media</groupId>
+			<artifactId>jersey-media-json-jackson</artifactId>
+			<version>2.21.1</version>
+		</dependency>
+		-->
 		
   </dependencies>
 </project>

@@ -1,11 +1,7 @@
 package net.is_bg.ltf;
 
-import java.sql.Connection;
-
 import net.is_bg.ltf.businessmodels.menu.MenuDao;
-import net.is_bg.ltf.db.common.ConnectionProperties;
 import net.is_bg.ltf.db.common.DBConfig;
-import net.is_bg.ltf.db.common.impl.DataSourceConnectionFactoryDrManager;
 import net.is_bg.ltf.db.common.impl.logging.LogFactorySystemOut;
 import net.is_bg.ltf.db.common.impl.timer.ElapsedTimer;
 import net.is_bg.ltf.db.common.impl.visit.VisitEmpty;
@@ -22,7 +18,6 @@ public class ServiceLocator {
 	private final static ServiceLocator serviceLocator = new ServiceLocator();
 	private IConnectionFactoryX cf;
 	
-
 
 	private  ServiceLocator(){
 		cf = new MyConnectionFactory("jdbc:postgresql://10.240.110.70:5432/pdv", "pdv", "pdv");

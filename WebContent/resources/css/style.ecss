@@ -49,6 +49,13 @@ body {
 	text-align:right;
 }
 
+.ibody{
+	display: block; 
+	overflow: hidden; 
+	position: absolute; 
+	height: 100%; width: 100%;
+}
+
 /*default style for buttons in entire application*/
 button, 
 input[type="reset"], 

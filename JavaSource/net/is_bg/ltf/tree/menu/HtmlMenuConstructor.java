@@ -16,6 +16,7 @@ import org.richfaces.component.UIMenuGroup;
 import org.richfaces.component.UIMenuItem;
 import org.richfaces.component.UIToolbar;
 
+import net.is_bg.ltf.AppUtil.Icons;
 import net.is_bg.ltf.businessmodels.menu.MenuNode;
 import net.is_bg.ltf.treeutil.ITreeNode;
 import net.is_bg.ltf.treeutil.TreeUtil;
@@ -44,15 +45,13 @@ public class HtmlMenuConstructor {
 		if(node.children.size() > 0){
 			//link to sub menu
 			//UIMenuGroup menuSubGroup = new UIMenuGroup();
-			UIMenuGroup menuSubGroup = (UIMenuGroup) ctx.getApplication().createComponent(ctx, 
-	                UIMenuGroup.COMPONENT_TYPE,
-	                "org.richfaces.MenuGroupRenderer");
+			UIMenuGroup menuSubGroup = (UIMenuGroup) ctx.getApplication().createComponent(ctx, UIMenuGroup.COMPONENT_TYPE,  "org.richfaces.MenuGroupRenderer");
 			//UIToolbar 
 			//HtmlMenuGroup menuSubGroup = new HtmlMenuGroup();
 			menuSubGroup.setLabel(node.node.getData().getMenuName());
 			menuSubGroup.setId("mnu" + Integer.toString(node.node.getData().getMenuRoleId()));
 			// иконка
-			//if (node.node.getData().getIconId() != null) menuSubGroup.setIcon(Icons.getIconUrl(node.node.getData().getIconId()));
+			if (node.node.getData().getIconId() != null) menuSubGroup.setIcon(Icons.getIconUrl(node.node.getData().getIconId()));
 			node.thisNodeHtml = menuSubGroup;
 			parent.getChildren().add(menuSubGroup);
 		}else{
@@ -63,6 +62,7 @@ public class HtmlMenuConstructor {
 			//menuItem.setSubmitMode("ajax");
 			menuItem.setLabel(node.node.getData().getMenuName());
 			menuItem.setId("mnu__" + Integer.toString(node.node.getData().getMenuRoleId()));
+			if (node.node.getData().getIconId() != null) menuItem.setIcon(Icons.getIconUrl(node.node.getData().getIconId()));
 			//addActionListener(menuItem, "#{mainFormBean.menuItemClick}");
 		    menuItem.setData(node.node.getData().getHref());
 			//menuItem.setReRender("ibody");
@@ -83,7 +83,7 @@ public class HtmlMenuConstructor {
 
 		// картинката
 		HtmlGraphicImage image = new HtmlGraphicImage();
-		//if (childNode.getIconId() != null) image.setUrl(Icons.getIconUrl(childNode.getIconId()));
+		if (node.node.getData().getIconId() != null) image.setUrl(Icons.getIconUrl(node.node.getData().getIconId()));
 		image.setStyleClass("menuIcon");
 		// надписа
 		HtmlOutputText text = new HtmlOutputText();
@@ -98,8 +98,11 @@ public class HtmlMenuConstructor {
 		node.thisNodeHtml = dropMenu;
 	}
 	
+	
+	
 
-	public static UIToolbar createMenuToolbar(ITreeNode<Integer, MenuNode> menuTree){
+	public static UIToolbar createMenuToolbar(List<MenuNode> lmenu){
+		ITreeNode<Integer, MenuNode> menuTree = MenuTreeConstructor.createMenuTree(lmenu);
 		UIToolbar menuBar;
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		menuBar = (UIToolbar) ctx.getApplication()
@@ -157,57 +160,5 @@ public class HtmlMenuConstructor {
 			dd.thisNodeHtmlParent = d.thisNodeHtml;
 		}
 	}
-	
-	
-	/*public static void addActionListener(ActionSource component, String elValue) {
-		ExpressionFactory ef = AppUtil.getApplication().getExpressionFactory();
-		MethodExpression me = ef.createMethodExpression(AppUtil.getFacesContext().getELContext(), elValue, null, new Class[] { ActionEvent.class });
-		component.addActionListener(new MethodExpressionActionListener(me));
-	}*/
 }
-
-/***
- * FacesContext ctx = FacesContext.getCurrentInstance();
-        menuBar = (UIToolbar) ctx.getApplication()
-            .createComponent(ctx, UIToolbar.COMPONENT_TYPE, 
-            "org.richfaces.ToolbarRenderer");
-        UIDropDownMenu dropDownMenu = (UIDropDownMenu) ctx.getApplication()
-            .createComponent(ctx, UIDropDownMenu.COMPONENT_TYPE,
-            "org.richfaces.DropDownMenuRenderer");
-        HtmlOutputText label = (HtmlOutputText) ctx.getApplication()
-            .createComponent(HtmlOutputText.COMPONENT_TYPE);
-        label.setValue("File");
-        dropDownMenu.getFacets().put(UIDropDownMenu.Facets.label.name(), label);
-        dropDownMenu.setMode(Mode.ajax);
-        dropDownMenu.setHideDelay(0);
- 
-        UIMenuItem menItm = (UIMenuItem) ctx.getApplication().createComponent(ctx, 
-                UIMenuItem.COMPONENT_TYPE,
-                "org.richfaces.MenuItemRenderer");
-        menItm.setLabel("New");
-        menItm.setIcon("/images/icons/create_doc.gif");
-        Class[] params = {};
-        MethodExpression me = ctx.getApplication()
-                .getExpressionFactory()
-                .createMethodExpression(ctx.getELContext(),
-                        "#{dropDownMenuBean.doNew}", String.class, params);
-        menItm.setActionExpression(me);
-        menItm.setMode(Mode.ajax);
- 
-       //Create an ID on your Item menu:
-        menItm.setId("doNewId");
- 
-        dropDownMenu.getChildren().add(menItm);
-        // menItm.setOnclick("alert('hello');");
- 
-        /*UIMenuItem menItm1 = (UIMenuItem) ctx.getApplication().createComponent(
-                UIMenuItem.COMPONENT_TYPE);
-        menItm1.setMode(Mode.ajax);
-        menItm1.setRendered(false);
-        dropDownMenu.getChildren().add(menItm1);
- 
-        menuBar.getChildren().add(dropDownMenu);
- 
-        return menuBar;
- */
 
