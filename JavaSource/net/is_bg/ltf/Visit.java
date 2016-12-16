@@ -579,6 +579,11 @@ public class Visit implements IVisit, Serializable {
 		// TODO Auto-generated method stub
 		return curUser;
 	}
+
+
+	public void setCurUser(User curUser) {
+		this.curUser = curUser;
+	}
 	
 	
 }

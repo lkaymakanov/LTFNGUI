@@ -22,8 +22,8 @@ public class ServiceLocator {
 	
 
 	private  ServiceLocator(){
-		cf =  new DataSourceConnectionFactoryDrManagerX("jdbc:postgresql://10.240.110.70:5432/pdv", "pdv", "pdv");
-		//new DataSourceConnectionFactory();
+		cf =  //new DataSourceConnectionFactoryDrManagerX("jdbc:postgresql://10.240.110.70:5432/pdv", "pdv", "pdv");
+		new DataSourceConnectionFactory();
 		DBConfig.initDBConfig(new LogFactorySystemOut(), 
 				new IVisitFactory() {
 					@Override

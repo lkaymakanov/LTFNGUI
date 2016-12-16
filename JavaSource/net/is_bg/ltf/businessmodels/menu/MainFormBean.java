@@ -15,7 +15,8 @@ public class MainFormBean implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -7832968142097013919L;
-	private UIToolbar menu = new UIToolbar();
+	private UIToolbar menu =  new UIToolbar();
+	private boolean menuGenerated = false;
 	
 	public MainFormBean(){
 		
@@ -23,14 +24,16 @@ public class MainFormBean implements Serializable{
 	
 	private void menuGenerate(){
 		 SessionBean sb = AppUtil.getSessionBeanFromFacesContext();
+		 if(sb == null ||  sb.getVisit() == null || sb.getVisit().getCurUser() == null) return;
 		 MenuSql sql = new MenuSql(sb.getVisit().getCurUser().getId());
 		 ServiceLocator.getServicelocator().getMenuDao().execute(sql);
 		 List<MenuNode> lmenu =  sql.getUnorderedMenuList();
 		 menu = HtmlMenuConstructor.createMenuToolbar(lmenu);
+		 menuGenerated = true;
 	}
 
 	public UIToolbar getMenu() {
-		if(menu == null) menuGenerate();
+		if(!menuGenerated) menuGenerate();
 		return menu;
 	}
 

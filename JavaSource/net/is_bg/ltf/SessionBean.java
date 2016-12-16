@@ -1,10 +1,14 @@
 package net.is_bg.ltf;
 
 import java.io.Serializable;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.el.ValueExpression;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.servlet.http.HttpServletRequest;
 
 import net.is_bg.ltf.ConnectionLoader.DBUrlAttributes;
 import net.is_bg.ltfn.commons.old.models.user.User;
@@ -29,10 +33,30 @@ public class SessionBean  implements Serializable{
 		// TODO Auto-generated method stub
 		ValueExpression exp = AppUtil.createValueExpression("#{sessionBean}", SessionBean.class);
 		SessionBean sb = (SessionBean) exp.getValue(AppUtil.getFacesContext().getELContext());
-		Visit visit = new Visit("PostgreSQL");
-		sb.visit = visit;
-		/*if()
-		AppUtil.getse*/
+		
+		
+		Visit tmpVisit = new Visit(attrib.tmpDbName);
+		tmpVisit.setTns(attrib.tmpTns);
+		tmpVisit.setDefDbConn(attrib.defDbCon);
+		tmpVisit.setDefDbConnReadOnly(attrib.defDbCon);
+		tmpVisit.setCurUser(curUser);
+		HttpServletRequest request = AppUtil.getRequest();
+	
+		tmpVisit.setRemoteAddr(request.getRemoteAddr());
+		tmpVisit.setRemoteHost(request.getRemoteHost());
+		tmpVisit.setRemotePort(request.getRemotePort());
+		tmpVisit.setRemoteUser(request.getRemoteUser());
+		
+		//read headers
+		Map<String, String> headers = new HashMap<String, String>();
+		Enumeration<String> headerNames = request.getHeaderNames();
+		while (headerNames.hasMoreElements()) {
+			String string = (String) headerNames.nextElement();
+			headers.put(string, request.getHeader(string));
+		}
+		//tmpVisit.getVisitAdditionals().setUserAgent(headers.get("user-agent"));
+		
+		sb.visit = tmpVisit;
 		return sb;
 	}
 }
