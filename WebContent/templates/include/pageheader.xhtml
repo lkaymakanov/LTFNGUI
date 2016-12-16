@@ -12,7 +12,7 @@
 
 		</rich:toolbar>
 		<ui:insert name="mainMenu" id="mainMenu" layout="block">
-			<h:form rendered="#{sessionBean.visit != null}" id="mainMenuBar" name="mainMenuBar" >
+			<h:form rendered="#{sessionBean.visit !=null and  mainFormBean.menu != null}" id="mainMenuBar" name="mainMenuBar" >
 				<div style="margin-top:-4px;">
 					<rich:toolbar   id="mainMenuBar" binding="#{mainFormBean.menu}" >
 					</rich:toolbar>
