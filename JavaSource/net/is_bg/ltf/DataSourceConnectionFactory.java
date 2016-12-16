@@ -3,8 +3,11 @@ package net.is_bg.ltf;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+
+import javax.faces.context.FacesContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+
 import net.is_bg.ltf.ContextParamLoader.CONTEXTPARAMS;
 import net.is_bg.ltf.db.common.JDBCException;
 import net.is_bg.ltf.db.common.interfaces.IConnectionFactoryX;
@@ -18,10 +21,10 @@ public class DataSourceConnectionFactory implements IConnectionFactoryX {
 	/** The Constant DATASOURCE_NAME. */
 	public Connection getConnection() {
 		Visit visit = null;
-		/*if(FacesContext.getCurrentInstance() != null){
-			SessionDataBean sb = (SessionDataBean) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(AppConstants.SESSION_DATA_BEAN);
+		if(FacesContext.getCurrentInstance() != null){
+			SessionBean sb = AppUtil.getSessionBeanFromFacesContext();
 			visit = (sb == null ? null : sb.getVisit());
-		}*/
+		}
 		String dataSourceName = visit == null ? (String)CONTEXTPARAMS.DEFAULT_JDBC_RESOURCE_NAME.getValue() : visit.getDefDbConn();
 		return getConnection(dataSourceName);
 	}

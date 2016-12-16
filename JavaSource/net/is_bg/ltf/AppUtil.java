@@ -23,7 +23,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import net.is_bg.ltf.security.ApplicationSessionManager;
 import net.is_bg.ltf.security.Sha512;
 
 public class AppUtil {
@@ -242,6 +241,12 @@ public class AppUtil {
 	 }
 	 
 	 
+	public static SessionBean getSessionBeanFromFacesContext(){
+		     if(getFacesContext() == null) return null;
+		     if(getFacesContext().getExternalContext() == null) return null;
+			 SessionBean sb = (SessionBean) getFacesContext().getExternalContext().getSessionMap().get(AppConstants.SESSION_BEAN);
+			 return sb;
+	}
 	 
 		
 	public static void processRequestParams(Map<String, String[]> map){

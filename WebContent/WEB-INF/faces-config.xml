@@ -10,7 +10,7 @@
  <navigation-rule>
   <from-view-id>/pages/login.xhtml</from-view-id>
   <navigation-case>
-   <from-outcome>sucess</from-outcome>
+   <from-outcome>success</from-outcome>
    <to-view-id>/pages/mainform.xhtml</to-view-id>
   </navigation-case>
  </navigation-rule>
@@ -21,4 +21,10 @@
    <to-view-id>/pages/login.xhtml</to-view-id>
   </navigation-case>
  </navigation-rule>
+ <application>
+  <resource-bundle>
+   <base-name>net.is_bg.ltf.bundles.msgLogin_bg</base-name>
+   <var>msgLogin</var>
+  </resource-bundle>
+ </application>
 </faces-config>

@@ -4,7 +4,10 @@ package authenticate;
 
 import java.io.IOException;
 import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
+
+import net.is_bg.ltf.AppUtil;
 import net.is_bg.ltf.ConnectionLoader;
 import net.is_bg.ltf.ConnectionLoader.DBUrlAttributes;
 import net.is_bg.ltf.SessionBean;
@@ -147,8 +150,10 @@ public class AuthenticationUtils {
 	 * @return
 	 */
 	public static SessionBean logUser(HttpServletRequest httpServletRequest, User curUser, int dbIndex){
+		SessionBean sb = AppUtil.getSessionBeanFromSession(httpServletRequest.getSession());
+		if(sb.getVisit() != null && sb.getVisit().getCurUser()!=null)  throw new RuntimeException("Session data is already attached to user...");
 		DBUrlAttributes attrib =   ConnectionLoader.getConnectionLoader().getMapConnection().get(dbIndex);
-		SessionBean sb =  SessionBean.attachSessionDataToLoggedUser(curUser, attrib);
+		sb =  SessionBean.attachSessionDataToLoggedUser(curUser, attrib);
 		
 		//insert into session table
 		/*Session s = new  Session();
