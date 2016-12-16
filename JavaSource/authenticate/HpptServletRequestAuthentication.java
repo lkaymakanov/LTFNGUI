@@ -45,7 +45,7 @@ class HpptServletRequestAuthentication {
 	 */
 	private  Visit getVisitFromHttpServletRequest(){
 		if(httpServletRequest == null) return null;
-		SessionBean sb = (SessionBean)httpServletRequest.getSession().getAttribute(AppConstants.SESSION_BEAN);
+		SessionBean sb = (SessionBean)httpServletRequest.getSession(true).getAttribute(AppConstants.SESSION_BEAN);
 		return sb == null ? null :sb.getVisit();
 	}
 	

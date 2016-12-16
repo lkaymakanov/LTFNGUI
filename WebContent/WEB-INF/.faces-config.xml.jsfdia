@@ -1,2 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<PROCESS model-entity="JSFProcess"/>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:#pages#login.xhtml" PATH="/pages/login.xhtml"
+  SHAPE="32,32,50,41" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#pages#login.xhtml:0" NAME="item"
+   PATH="/pages/login.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="sucess::#pages#mainform.xhtml" NAME="output"
+    PATH="/pages/mainform.xhtml" TARGET="rules:#pages#mainform.xhtml"
+    TITLE="sucess" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#mainform.xhtml"
+  PATH="/pages/mainform.xhtml" SHAPE="240,33,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#pages#mainform.xhtml:0" NAME="item"
+   PATH="/pages/mainform.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="logout::#pages#login.xhtml" NAME="output"
+    PATH="/pages/login.xhtml" TARGET="rules:#pages#login.xhtml"
+    TITLE="logout" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+</PROCESS>

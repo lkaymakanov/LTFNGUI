@@ -2,6 +2,7 @@ package net.is_bg.ltf;
 
 import java.io.Serializable;
 
+import javax.el.ValueExpression;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -26,8 +27,12 @@ public class SessionBean  implements Serializable{
 
 	public static SessionBean attachSessionDataToLoggedUser(User curUser, DBUrlAttributes attrib) {
 		// TODO Auto-generated method stub
+		ValueExpression exp = AppUtil.createValueExpression("#{sessionBean}", SessionBean.class);
+		SessionBean sb = (SessionBean) exp.getValue(AppUtil.getFacesContext().getELContext());
+		Visit visit = new Visit("PostgreSQL");
+		sb.visit = visit;
 		/*if()
 		AppUtil.getse*/
-		return null;
+		return sb;
 	}
 }

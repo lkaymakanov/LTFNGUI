@@ -3,26 +3,16 @@ package authenticate;
 
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
-
-import token.TokenConstants;
-import token.TokenData;
-import net.is_bg.ltf.AppUtil;
-import net.is_bg.ltf.ApplicationGlobals;
 import net.is_bg.ltf.ConnectionLoader;
 import net.is_bg.ltf.ConnectionLoader.DBUrlAttributes;
 import net.is_bg.ltf.SessionBean;
 import net.is_bg.ltf.login.LoginResult;
 import net.is_bg.ltfn.commons.old.models.user.User;
-import authenticate.AuthenticationException;
-import authenticate.IAuthentication;
+import token.TokenConstants;
 import authenticate.AuthenticationException.AuthenticationExceptionBuilder;
 
-import com.cc.rest.client.Requester;
-import com.cc.rest.client.Requester.MEDIA_TYPE;
 import com.cc.rest.client.enumerators.IPARAM;
 import com.cc.rest.client.enumerators.IREST_PATH;
 

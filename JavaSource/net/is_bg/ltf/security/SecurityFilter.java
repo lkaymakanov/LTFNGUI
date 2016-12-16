@@ -16,10 +16,15 @@ import javax.servlet.http.HttpServletResponse;
 
 
 
+
+
 import net.is_bg.ltf.AppUtil;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import authenticate.AuthenticationUtils;
+import authenticate.UserNavigationPage;
 
 public class SecurityFilter implements Filter {
 	
@@ -44,8 +49,13 @@ public class SecurityFilter implements Filter {
 			System.out.println("Context  is " + context);
 			System.out.println("Uri  is " + uri);
 			
-			Object o = AppUtil.getSessionBeanFromSession(httpServletRequest.getSession());
-			System.out.println("Session Bean = " + o);
+			
+			//check if logged
+			UserNavigationPage up = AuthenticationUtils.checkifLogged(httpServletRequest);
+			if(up.getNavPage() != null){
+				httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/" + up.getNavPage());
+				return;
+			}
 			
 			/*
 			Enumeration headerNames = httpServletRequest.getHeaderNames();
