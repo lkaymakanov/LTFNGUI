@@ -18,6 +18,7 @@ import javax.el.ValueExpression;
 import javax.faces.application.Application;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.naming.Context;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -628,6 +629,10 @@ public class AppUtil {
 	      return fileContent;
 	}
 	
+	/**Initializes & returns the java context*/
+	public static Context getContext(){
+		return ApplicationGlobals.getApplicationGlobals().getContext();
+	}
 	
 	/***
 	 * Manage icon paths!!!
