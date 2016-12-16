@@ -11,10 +11,12 @@ import net.is_bg.ltf.db.common.interfaces.timer.IElaplsedTimer;
 import net.is_bg.ltf.db.common.interfaces.timer.IElaplsedTimerFactory;
 import net.is_bg.ltf.db.common.interfaces.visit.IVisit;
 import net.is_bg.ltf.db.common.interfaces.visit.IVisitFactory;
+import net.is_bg.ltf.login.LoginDao;
 
 public class ServiceLocator {
 	
 	private  MenuDao menuDao;
+	private LoginDao loginDao;
 	private final static ServiceLocator serviceLocator = new ServiceLocator();
 	private IConnectionFactoryX cf;
 	
@@ -39,8 +41,9 @@ public class ServiceLocator {
 		initDaos(DBConfig.getConnectionFactory());
 	}
 	
-	private void initDaos(IConnectionFactory connectionFactory){
-		menuDao = new MenuDao(connectionFactory);
+	private void initDaos(IConnectionFactory factory){
+		menuDao = new MenuDao(factory);
+		loginDao = new LoginDao(factory);
 	}
 	
 	public static ServiceLocator getServicelocator() {
@@ -49,6 +52,11 @@ public class ServiceLocator {
 
 	public MenuDao getMenuDao() {
 		return menuDao;
+	}
+
+	public LoginDao getLoginDao() {
+		// TODO Auto-generated method stub
+		return loginDao;
 	}
 	
 }

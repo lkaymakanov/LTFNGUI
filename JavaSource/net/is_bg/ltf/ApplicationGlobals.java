@@ -12,6 +12,7 @@ public class ApplicationGlobals {
 	private long startTime;
 	private  Context initContext = null; 
 	
+	
 	static{
 		init();
 	}
@@ -43,5 +44,9 @@ public class ApplicationGlobals {
 			// TODO: handle exception
 			return null;
 		}
+	}
+	
+	public ServiceLocator getServiceLocator(){
+		return ServiceLocator.getServicelocator();
 	}
 }

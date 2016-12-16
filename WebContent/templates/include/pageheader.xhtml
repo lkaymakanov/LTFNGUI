@@ -14,7 +14,7 @@
 		<ui:insert name="mainMenu" id="mainMenu" layout="block">
 			<h:form id="mainMenuBar" name="mainMenuBar" >
 				<div style="margin-top:-4px;">
-					<rich:toolbar  id="mainMenuBar" binding="#{mainFormBean.menu}" >
+					<rich:toolbar rendered="#{sessionBean.visit != null}"  id="mainMenuBar" binding="#{mainFormBean.menu}" >
 					</rich:toolbar>
 				</div>
 			</h:form>

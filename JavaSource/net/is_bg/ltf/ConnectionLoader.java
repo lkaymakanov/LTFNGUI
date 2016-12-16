@@ -29,7 +29,6 @@ public class ConnectionLoader {
 	private List<SelectItem> dbConns = new ArrayList<SelectItem>();
 	private Map<Integer, DBUrlAttributes> mapConnection = new HashMap<Integer, DBUrlAttributes>();
 	private int  defDbConn = 0;  // "jdbc/ltf";
-	
 	private static ConnectionLoader connectionLoader;
 	
 	

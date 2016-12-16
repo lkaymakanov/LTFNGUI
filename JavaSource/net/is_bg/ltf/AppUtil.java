@@ -23,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import net.is_bg.ltf.security.ApplicationSessionManager;
 import net.is_bg.ltf.security.Sha512;
 
 public class AppUtil {
@@ -224,8 +225,23 @@ public class AppUtil {
 	  	 getApplication().getExpressionFactory().createValueExpression(getFacesContext().getELContext(),
 						     valueExpression,
 						     valueType);
-    }
+     }
+	 
+	 
+	/* public static SessionBean getSessionBeanForSessionId(String sessionId){
+		 HttpSession session =	ApplicationSessionManager.getSession(sessionId);
+		 if(session == null) return null;
+		 SessionBean sb = (SessionBean)session.getAttribute(AppConstants.SESSION_BEAN);
+		 return sb;
+	 }*/
 		
+	 public static SessionBean getSessionBeanFromSession(HttpSession session){
+		 if(session == null) return null;
+		 SessionBean sb = (SessionBean)session.getAttribute(AppConstants.SESSION_BEAN);
+		 return sb;
+	 }
+	 
+	 
 	 
 		
 	public static void processRequestParams(Map<String, String[]> map){
@@ -632,6 +648,19 @@ public class AppUtil {
 	/**Initializes & returns the java context*/
 	public static Context getContext(){
 		return ApplicationGlobals.getApplicationGlobals().getContext();
+	}
+	
+	/**
+	 * 
+	 * @param beanName
+	 * @param type
+	 * @return
+	 */
+	public static <T> T  getBean(String beanName, Class<T> type){
+		if(getFacesContext()== null) return null;
+		ELContext elContext = getFacesContext().getELContext();
+		if(elContext == null) return null;
+		return  (T) FacesContext.getCurrentInstance().getApplication().getELResolver().getValue(elContext, null, beanName);
 	}
 	
 	/***

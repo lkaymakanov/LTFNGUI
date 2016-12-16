@@ -108,7 +108,7 @@ public class ContextParamLoader<T> {
 		SUPPORT_URL(support_url, ContextParamLoader.getParam(support_url,  String.class, null), String.class),
 		
 		TRANSACTIONQUEUE_MAX_SIZE(transactionQueueMaxSize, ContextParamLoader.getParam(transactionQueueMaxSize, Integer.class, 100), Integer.class), 
-		DEFAULT_JDBC_RESOURCE_NAME("", "", String.class);
+		DEFAULT_JDBC_RESOURCE_NAME("jdbc/ltf", "jdbc/ltf", String.class);
 		
 
 		<T> CONTEXTPARAMS(String name, T defaultValue,  Class<T> c){
