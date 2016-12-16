@@ -12,10 +12,8 @@
 						
 						<rich:panel style="width:345px;" headerClass="tablePanel" id="loginPanel" >
 							<f:facet name="header"> 
-									<h:panelGrid>
+									<rich:collapsiblePanel header="Overview" switchType="client">
 										<h:outputText value="#{msgLogin.staffOnly}" style="font-weight: bold; color: red;" />
-										
-											
 										<h:panelGroup style="display:block;max-height:250px;overflow:auto;">	
 											<h:selectOneRadio value="#{loginBean.defDbConn}" 
 								                layout="pageDirection" style="font: monospace bold 14pt !important;"
@@ -24,7 +22,7 @@
 								           <f:selectItems value="#{loginBean.dbConns}" />
 								          </h:selectOneRadio>
 										</h:panelGroup>
-									</h:panelGrid>
+									</rich:collapsiblePanel>
 							</f:facet>
 							
 							<h:panelGrid columns="2">
