@@ -8,11 +8,12 @@
 	
 	<ui:composition template="/templates/commonlayout.xhtml">
 		<ui:define name="pageBody">
-			<h:form id="loginForm" style="padding: 0px; width: 100%; height: 100%" >	
+		<span style="float: right;">
+			<h:form id="loginForm" style="padding-right: 50px; width: 100%; height: 100%; " >	
 						
-						<rich:panel style="width:345px;" headerClass="tablePanel" id="loginPanel" >
+						<rich:panel style="width:410px;" headerClass="tablePanel" id="loginPanel" >
 							<f:facet name="header"> 
-									<rich:collapsiblePanel header="Overview" switchType="client">
+									<rich:collapsiblePanel expanded="fale" header="Overview" switchType="client">
 										<h:outputText value="#{msgLogin.staffOnly}" style="font-weight: bold; color: red;" />
 										<h:panelGroup style="display:block;max-height:250px;overflow:auto;">	
 											<h:selectOneRadio value="#{loginBean.defDbConn}" 
@@ -26,7 +27,7 @@
 							</f:facet>
 							
 							<h:panelGrid columns="2">
-							<h:graphicImage value="/images/logo_80.png" />
+							<h:graphicImage value="/images/logo_80.png" styleClass="loginIcon"/>
 							
 							<h:panelGrid columns="3">
 								<h:outputText value="#{msgLogin.username}"/>
@@ -64,6 +65,7 @@
 									  rendered="#{param.sessionExpired == 1}"
 									  style="font-size: 10pt; font-weight: bold; color: red;" />			  
 					</h:form>
+				</span>
 		</ui:define>
 	</ui:composition>
 </html>

@@ -24,7 +24,6 @@ public class AuthenticationController {
 	@Path("/data")
 	public ITokenData getTokenData(@Context UriInfo info){
 		List<String> s = info.getQueryParameters().get(TokenConstants.TOKEN_ID_PARAM_NAME);
-		String [] a  =  info.getPath(true).split("/");
 		String tokenId = (s == null || s.size() < 1 ? null : s.get(0));
 		SessionBean sb = AppUtil.getSessionBeanFromSession(ApplicationSessionManager.getSession(tokenId));
 		return sb.getTokenData();
