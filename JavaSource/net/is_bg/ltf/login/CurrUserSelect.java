@@ -126,7 +126,7 @@ public class CurrUserSelect extends SelectSqlStatement {
 			    rs.getDate("endDate"),
 			    createdBy,
 			    rs.getDate("createdDate"),
-			    rs.getString("password"),
+			    rs.getString("userpass"),
 			    rs.getInt("faultCounter"),
 			    rs.getDate("faultDate"),
 			    false,

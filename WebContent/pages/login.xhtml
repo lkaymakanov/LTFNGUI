@@ -9,6 +9,64 @@
 	<ui:composition template="/templates/commonlayout.xhtml">
 		<ui:define name="pageBody">
 			Login form here!!!
+			<h:form id="loginForm" style="padding: 0px; width: 100%; height: 100%" >	
+						
+						<rich:panel style="width:345px;" headerClass="tablePanel" id="loginPanel" >
+							<f:facet name="header"> 
+									<h:panelGrid>
+										<h:outputText value="#{msgLogin.staffOnly}" style="font-weight: bold; color: red;" />
+										
+											
+										<h:panelGroup style="display:block;max-height:250px;overflow:auto;">	
+											<h:selectOneRadio value="#{loginBean.defDbConn}" 
+								                layout="pageDirection" style="font: monospace bold 14pt !important;"
+								                rendered="true">
+								             
+								           <f:selectItems value="#{loginBean.dbConns}" />
+								          </h:selectOneRadio>
+										</h:panelGroup>
+									</h:panelGrid>
+							</f:facet>
+							
+							<h:panelGrid columns="2">
+							<h:graphicImage value="/images/logo_80.png" />
+							
+							<h:panelGrid columns="3">
+								<h:outputText value="#{msgLogin.username}"/>
+								<h:graphicImage value="/images/icons/silk/16x16/user_go.gif" styleClass="loginIcon"/>
+								<h:inputText styleClass="login" value="#{loginBean.username}" id="username"/>
+
+								<h:outputText value="#{msgLogin.password}" />
+								<h:graphicImage value="/images/icons/silk/16x16/lock.gif" styleClass="loginIcon"/>
+								<h:inputSecret styleClass="login" value="#{loginBean.password}"  id="password"/>
+								
+								<h:outputText value="" />
+								<h:outputText value="" />
+								<h:commandButton styleClass="button" 
+												 id="btnLogin"
+												 style="width: 100%" 
+												 action="#{loginBean.login}" 
+												 value="#{msgLogin.btnLogin}" 
+												 reRender="msgModal" 
+												 oncomplete="javascript:errMsg('mainForm:password');"/>
+							</h:panelGrid>
+							</h:panelGrid>
+							<h:outputText value="#{msgLogin.sessionUnsecure}" 
+										  escape="false" 
+										  rendered="#{!loginBean.secured}"
+										  style="font-size: 10pt; font-weight: bold; color: red;" />
+							
+						</rich:panel>
+						<h:outputText value="#{msgLogin.sessionExpired}" 
+									  escape="false" 
+									  rendered="#{param.sessionExpired == 1}"
+									  style="font-size: 12pt; font-weight: bold; color: red;" />
+									  
+						<h:outputText value="#{msgLogin.sessionExpired1}" 
+									  escape="false" 
+									  rendered="#{param.sessionExpired == 1}"
+									  style="font-size: 10pt; font-weight: bold; color: red;" />			  
+					</h:form>
 		</ui:define>
 	</ui:composition>
 </html>
