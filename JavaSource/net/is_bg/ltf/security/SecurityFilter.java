@@ -1,8 +1,6 @@
 package net.is_bg.ltf.security;
 
 import java.io.IOException;
-
-import javax.ejb.SessionBean;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -11,18 +9,8 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-
-
-
-
-
-
-import net.is_bg.ltf.AppUtil;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import authenticate.AuthenticationUtils;
 import authenticate.UserNavigationPage;
 
@@ -48,6 +36,7 @@ public class SecurityFilter implements Filter {
 			System.out.println("Page is " + url);
 			System.out.println("Context  is " + context);
 			System.out.println("Uri  is " + uri);
+			
 			
 			
 			//check if logged

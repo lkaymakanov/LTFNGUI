@@ -10,6 +10,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.servlet.http.HttpServletRequest;
 
+import token.ITokenData;
+import token.TokenData.TokenDataBuilder;
 import net.is_bg.ltf.ConnectionLoader.DBUrlAttributes;
 import net.is_bg.ltfn.commons.old.models.user.User;
 
@@ -21,6 +23,7 @@ public class SessionBean  implements Serializable{
 	 */
 	private static final long serialVersionUID = -8340410909113766529L;
 	private Visit visit;
+	private ITokenData tokenData; 
 	
 
 	public Visit getVisit() {
@@ -29,18 +32,30 @@ public class SessionBean  implements Serializable{
 
 	
 
+	public ITokenData getTokenData() {
+		return tokenData;
+	}
+
+
+
 	public static SessionBean attachSessionDataToLoggedUser(User curUser, DBUrlAttributes attrib) {
 		// TODO Auto-generated method stub
 		ValueExpression exp = AppUtil.createValueExpression("#{sessionBean}", SessionBean.class);
 		SessionBean sb = (SessionBean) exp.getValue(AppUtil.getFacesContext().getELContext());
+		HttpServletRequest request = AppUtil.getRequest();
+		TokenDataBuilder tokenDataBuilder = new  TokenDataBuilder();
+		tokenDataBuilder.setRequestIp(AppUtil.getIpAdddress(request));
+		tokenDataBuilder.setTokenId(request.getSession().getId());
+		tokenDataBuilder.setTokenSessionId(request.getSession().getId());
+		tokenDataBuilder.setUserId(curUser.getId() + "");
 		
+		sb.tokenData = tokenDataBuilder.build();
 		
 		Visit tmpVisit = new Visit(attrib.tmpDbName);
 		tmpVisit.setTns(attrib.tmpTns);
 		tmpVisit.setDefDbConn(attrib.defDbCon);
 		tmpVisit.setDefDbConnReadOnly(attrib.defDbCon);
 		tmpVisit.setCurUser(curUser);
-		HttpServletRequest request = AppUtil.getRequest();
 	
 		tmpVisit.setRemoteAddr(request.getRemoteAddr());
 		tmpVisit.setRemoteHost(request.getRemoteHost());
