@@ -22,7 +22,7 @@ public class AuthenticationController {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/data")
-	public ITokenData getString(@Context UriInfo info){
+	public ITokenData getTokenData(@Context UriInfo info){
 		List<String> s = info.getQueryParameters().get(TokenConstants.TOKEN_ID_PARAM_NAME);
 		String [] a  =  info.getPath(true).split("/");
 		String tokenId = (s == null || s.size() < 1 ? null : s.get(0));
