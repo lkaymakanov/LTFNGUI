@@ -12,6 +12,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.servlet.http.HttpServletRequest;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import authenticate.controller.AuthenticationEncryptionUtils;
 
 
@@ -64,8 +66,17 @@ public class SessionBean  implements Serializable{
 		String userKey = curUser.getOther();
 		tokenDataBuilder.setUserId(userKey);
 		String userEncryptionKey = ApplicationGlobals.getApplicationGlobals().getServiceLocator().getLoginDao().getEncryptionKey(userKey, attrib.defDbCon);
-		tokenDataBuilder.setAdditionalData(AuthenticationEncryptionUtils.getEncoderFactory(userEncryptionKey).getEncoder().encode(TokenUtils.serialize(tdata)));
+		byte [] data = AuthenticationEncryptionUtils.getEncoderFactory(userEncryptionKey).getEncoder().encode(TokenUtils.serialize(tdata));
+		tokenDataBuilder.setAdditionalData(data);
 		sb.tokenData = tokenDataBuilder.build();
+		
+		ObjectMapper om = new ObjectMapper();
+		String s = om.convertValue(sb.tokenData.getAdditionalData(), String.class);
+		
+		/*//convert to bytes 
+		byte [] b = om.convertValue(s, byte[].class);
+		AuthenticationEncryptionUtils.getDecoderFactory(userEncryptionKey).getDecoder().decode(b);
+		ITokenData ittt =	TokenUtils.deserialize(b, b.length, ITokenData.class);*/
 		
 		Visit tmpVisit = new Visit(attrib.tmpDbName);
 		tmpVisit.setTns(attrib.tmpTns);

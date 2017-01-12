@@ -5,12 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.el.MethodExpression;
 import javax.faces.component.UIComponent;
 import javax.faces.component.html.HtmlGraphicImage;
 import javax.faces.component.html.HtmlOutputText;
 import javax.faces.component.html.HtmlPanelGroup;
 import javax.faces.context.FacesContext;
 
+import org.richfaces.component.Mode;
 import org.richfaces.component.UIDropDownMenu;
 import org.richfaces.component.UIMenuGroup;
 import org.richfaces.component.UIMenuItem;
@@ -65,6 +67,19 @@ public class HtmlMenuConstructor {
 			if (node.node.getData().getIconId() != null) menuItem.setIcon(Icons.getIconUrl(node.node.getData().getIconId()));
 			//addActionListener(menuItem, "#{mainFormBean.menuItemClick}");
 		    menuItem.setData(node.node.getData().getHref());
+		    menuItem.setMode(Mode.ajax);
+		    String href = node.node.getData().getHref();
+		    String qNode =  "'" + ( href  == null ? "none" : href )+ "'";
+		    qNode = qNode.replaceAll("\\\\", "/");
+		    //System.out.println(qNode);
+		    menuItem.setIcon(node.node.getData().getIconId());
+	        Class[] params = {String.class };
+	        MethodExpression me = ctx.getApplication()
+	                .getExpressionFactory()
+	                .createMethodExpression(ctx.getELContext(),
+	                        "#{mainFormBean.link("+ qNode + ")}", String.class, params);
+	        menuItem.setActionExpression(me);
+		   // menuItem.ad
 			//menuItem.setReRender("ibody");
 			// иконка
 			//if (node.node.getData().getIconId() != null) menuItem.setIcon(Icons.getIconUrl(node.node.getData().getIconId()));
