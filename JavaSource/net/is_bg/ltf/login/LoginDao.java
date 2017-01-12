@@ -25,6 +25,12 @@ public class LoginDao extends AbstractMainDao {
 	}
 	
 	
+	public String getEncryptionKey(String userKey, String defdbCon){
+		EncryptionKeyForUserKeyStoredFunction f = new EncryptionKeyForUserKeyStoredFunction(userKey);
+		execute(f, defdbCon);
+		return f.getEncryptionKey();
+	}
+	
 	public LoginResult loginResult(String username, String password) {
 		return loginResult(username,  password, null);
 	}

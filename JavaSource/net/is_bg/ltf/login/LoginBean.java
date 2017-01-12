@@ -1,6 +1,8 @@
 package net.is_bg.ltf.login;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,7 +70,7 @@ public class LoginBean implements Serializable {
 	
 	
 	//-----------------------------------------------------------------------------
-	public String login() {
+	public String login() throws IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, SecurityException, NoSuchMethodException, InvocationTargetException, ClassNotFoundException {
 		HttpServletRequest request = (HttpServletRequest) AppUtil.getFacesContext().getExternalContext().getRequest();
 		//login кодиран case sensitive !!!
 	    LoginResult loginResult = null;

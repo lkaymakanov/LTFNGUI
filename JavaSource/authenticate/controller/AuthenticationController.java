@@ -1,5 +1,6 @@
 package authenticate.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -10,7 +11,6 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
 
-import token.ITokenData;
 import token.TokenConstants;
 import net.is_bg.ltf.AppUtil;
 import net.is_bg.ltf.SessionBean;
@@ -22,11 +22,16 @@ public class AuthenticationController {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/data")
-	public ITokenData getTokenData(@Context UriInfo info){
+	public TokenDataUserData getTokenData(@Context UriInfo info) throws IOException{
 		List<String> s = info.getQueryParameters().get(TokenConstants.TOKEN_ID_PARAM_NAME);
 		String tokenId = (s == null || s.size() < 1 ? null : s.get(0));
 		SessionBean sb = AppUtil.getSessionBeanFromSession(ApplicationSessionManager.getSession(tokenId));
-		return sb.getTokenData();
+		TokenDataUserData dk = new TokenDataUserData();
+		dk.setUserKey(sb.getVisit().getCurUser().getOther());
+		dk.setDefDbCon(sb.getVisit().getDefDbConn());
+		//(TokenUtils.serialize(sb.getTokenData()));
+		dk.setTokenData(sb.getTokenData());
+		return dk;
 	}
 	
 	

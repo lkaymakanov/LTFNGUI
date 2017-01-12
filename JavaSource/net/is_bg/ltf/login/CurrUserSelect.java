@@ -33,6 +33,7 @@ public class CurrUserSelect extends SelectSqlStatement {
 		"        u.created_date createdDate,\n"+
 		"        u.other other,\n"+
 		"        u.default_printer,\n"+
+		"		 u.user_key userkey\n," +
 		"        u.is_matrix_printer,\n"+
 		"	 u.skin,\n"+
 		"	 coalesce(u.mustchangepass, 0) mustchangepass,\n"+
@@ -102,26 +103,11 @@ public class CurrUserSelect extends SelectSqlStatement {
 	    Company company = new Company();
 	    company.setId(rs.getLong("companyId"));
 	    company.setName(rs.getString("companyName"));*/
-	    /**
-	     * @JsonProperty("user_id") Long id,
-		@JsonProperty("username") String userName,
-		@JsonProperty("fullname") String fullName,
-		@JsonProperty("other") String other,
-		@JsonProperty("begin_date") Date beginDate,
-		@JsonProperty("end_date") Date endDate,
-		@JsonProperty("createdby") User createdBy,
-		@JsonProperty("created_date") Date creationDate,
-		@JsonProperty("password") String password,
-		@JsonProperty("faultcounter") int faultCounter,
-		@JsonProperty("faultdate") Date faultDate,
-		@JsonProperty("logged") boolean logged,
-		@JsonProperty("municipality") Municipality municipality,
-		@JsonProperty("accessdenied") boolean accessDenied
-	     */
+	    
 		user = new User(rs.getLong("userId"),
 			    rs.getString("username"),
 			    rs.getString("fullName"),
-			    "other",
+			    rs.getString("userkey"),
 			    rs.getDate("beginDate"),
 			    rs.getDate("endDate"),
 			    createdBy,
@@ -135,6 +121,8 @@ public class CurrUserSelect extends SelectSqlStatement {
 		}
     }
 
+
+    
     public User getUser() {
         return user;
     }

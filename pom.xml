@@ -21,7 +21,7 @@
 		<resources>
 			<resource>
 				<filtering>true</filtering>
-				<directory>JavaResource</directory>
+				<directory>JavaResources</directory>
 				<excludes>
 					<exclude>**/.svn</exclude>
 					<exclude>**/*.jasper</exclude>
@@ -34,7 +34,7 @@
 			</resource>
 			<resource>
 				<filtering>false</filtering>
-				<directory>JavaResource</directory>
+				<directory>JavaResources</directory>
 				<includes>
 					<include>**/*.jasper</include>
 					<include>**/*.TTF</include>
@@ -519,6 +519,11 @@
 			<groupId>net.is_bg.ltfn</groupId>
 			<artifactId>LTFN-Commons</artifactId>
 			<version>0.4.8</version>
+		</dependency>
+		<dependency>
+			<groupId>clframe</groupId>
+			<artifactId>clframe</artifactId>
+			<version>1.6.27</version>
 		</dependency>
 	  	<!-- 
 	  	<dependency>

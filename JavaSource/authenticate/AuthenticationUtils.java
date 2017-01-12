@@ -3,6 +3,7 @@ package authenticate;
 
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -148,8 +149,16 @@ public class AuthenticationUtils {
 	 * @param curUser
 	 * @param attrib
 	 * @return
+	 * @throws IOException 
+	 * @throws ClassNotFoundException 
+	 * @throws InvocationTargetException 
+	 * @throws NoSuchMethodException 
+	 * @throws SecurityException 
+	 * @throws IllegalArgumentException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
 	 */
-	public static SessionBean logUser(HttpServletRequest httpServletRequest, User curUser, int dbIndex){
+	public static SessionBean logUser(HttpServletRequest httpServletRequest, User curUser, int dbIndex) throws IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, SecurityException, NoSuchMethodException, InvocationTargetException, ClassNotFoundException{
 		SessionBean sb = AppUtil.getSessionBeanFromSession(httpServletRequest.getSession());
 		if(sb.getVisit() != null && sb.getVisit().getCurUser()!=null)  throw new RuntimeException("Session data is already attached to user...");
 		DBUrlAttributes attrib =   ConnectionLoader.getConnectionLoader().getMapConnection().get(dbIndex);

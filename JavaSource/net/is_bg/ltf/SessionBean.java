@@ -1,6 +1,8 @@
 package net.is_bg.ltf;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,7 +12,11 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.servlet.http.HttpServletRequest;
 
+import authenticate.controller.AuthenticationEncryptionUtils;
+
+
 import token.ITokenData;
+import token.TokenUtils;
 import token.TokenData.TokenDataBuilder;
 import net.is_bg.ltf.ConnectionLoader.DBUrlAttributes;
 import net.is_bg.ltfn.commons.old.models.user.User;
@@ -38,7 +44,7 @@ public class SessionBean  implements Serializable{
 
 
 
-	public static SessionBean attachSessionDataToLoggedUser(User curUser, DBUrlAttributes attrib) {
+	public static SessionBean attachSessionDataToLoggedUser(User curUser, DBUrlAttributes attrib) throws IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, SecurityException, NoSuchMethodException, InvocationTargetException, ClassNotFoundException {
 		// TODO Auto-generated method stub
 		ValueExpression exp = AppUtil.createValueExpression("#{sessionBean}", SessionBean.class);
 		SessionBean sb = (SessionBean) exp.getValue(AppUtil.getFacesContext().getELContext());
@@ -49,6 +55,16 @@ public class SessionBean  implements Serializable{
 		tokenDataBuilder.setTokenSessionId(request.getSession().getId());
 		tokenDataBuilder.setUserId(curUser.getId() + "");
 		
+		
+		//generate token
+		ITokenData tdata = tokenDataBuilder.build();
+		
+		//encrypt token with user key
+		tokenDataBuilder = new TokenDataBuilder();
+		String userKey = curUser.getOther();
+		tokenDataBuilder.setUserId(userKey);
+		String userEncryptionKey = ApplicationGlobals.getApplicationGlobals().getServiceLocator().getLoginDao().getEncryptionKey(userKey, attrib.defDbCon);
+		tokenDataBuilder.setAdditionalData(AuthenticationEncryptionUtils.getEncoderFactory(userEncryptionKey).getEncoder().encode(TokenUtils.serialize(tdata)));
 		sb.tokenData = tokenDataBuilder.build();
 		
 		Visit tmpVisit = new Visit(attrib.tmpDbName);
